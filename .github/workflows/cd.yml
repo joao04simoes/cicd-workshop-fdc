@@ -50,8 +50,8 @@ jobs:
 
           - name: build docker
             run: |
-                docker build  europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REGISTRY }}/{APP_Joao}:v$15_1
-                docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_ARTIFACT_REGISTRY }}/{APP_Joao}:v$15_1
+                docker build  europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REGISTRY }}/APP_Joao:v$15_1
+                docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_ARTIFACT_REGISTRY }}/APP_Joao:v$15_1
             
           - name: deploy
             run: gcloud run deploy cicd-15 --image {15_1} --region us-central
