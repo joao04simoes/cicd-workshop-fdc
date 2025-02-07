@@ -50,7 +50,7 @@ jobs:
 
           - name: build docker
             run: |
-                docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REGISTRY }}/APP_Joao:v15_1
+                docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REGISTRY }}/APP_Joao:v15_1 .
                 docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_ARTIFACT_REGISTRY }}/APP_Joao:v15_1
             
           - name: deploy
