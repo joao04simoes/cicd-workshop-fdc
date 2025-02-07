@@ -47,6 +47,8 @@ jobs:
             run: flutter analyze
           - name: Test
             run: flutter test  
+          - name: build web
+            run: flutter build web 
 
           - name: build docker
             run: |
