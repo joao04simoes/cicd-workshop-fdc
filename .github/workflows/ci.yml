@@ -17,5 +17,9 @@ jobs:
           # Installs Flutter and allows you to run commands like flutter build, flutter test, and flutter analyze within your CI/CD pipeline.
           - name: Setup Flutter 
             uses: subosito/flutter-action@v2
+            
             with:
               channel: 'stable'
+          - name: verifies formatting
+            run: dart format --output=none --set-exit-if-changed
+              
