@@ -29,7 +29,7 @@ jobs:
           # Configure Docker authentication for interacting with Artifact Registry, allowing you to push or pull Docker images securely.
           # Build the docker image and push top artifact registry.
           - name: Build and Push Docker Image 🐳
-            run:|
+            run: |
                 gcloud auth configure-docker --quiet
                 gcloud auth configure-docker europe-west3-docker.pkg.dev --quiet
           
