@@ -20,8 +20,8 @@ jobs:
             
             with:
               channel: 'stable'
-          - name: verifies formatting
-            run: dart format --output=none --set-exit-if-changed
+          - name: verifies formating
+            run: dart format --output=none --set-exit-if-changed .
           - name: Analyze
             run: flutter analyze
           - name: Test
