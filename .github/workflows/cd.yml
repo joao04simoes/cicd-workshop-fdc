@@ -17,21 +17,39 @@ jobs:
           # Authenticates in GCP with the provided user credentials.
           # Provides secure, temporary credentials for GCP.
           # Supports authentication using Service Account Key JSONs (less secure, legacy method).
-          # - name: Authenticate with GCP 
-          #   uses: google-github-actions/auth@v1
-          #   with:
-          #     credentials_json: ${{ secrets.GCP_SA_KEY }}
+          - name: Authenticate with GCP 
+            uses: google-github-actions/auth@v1
+            with:
+               credentials_json: ${{ secrets.GCP_SA_KEY }}
 
           # Set the default GCP project for subsequent gcloud commands in your environment. 
-          # - name: Configure GCP Project
-          #   run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+          - name: Configure GCP Project
+            run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
 
           # Configure Docker authentication for interacting with Artifact Registry, allowing you to push or pull Docker images securely.
           # Build the docker image and push top artifact registry.
-          # - name: Build and Push Docker Image 🐳
-          #   run: |
-          #     gcloud auth configure-docker --quiet
-          #     gcloud auth configure-docker europe-west3-docker.pkg.dev --quiet
+          - name: Build and Push Docker Image 🐳
+            run: gcloud auth configure-docker --quiet
+            run: gcloud auth configure-docker europe-west3-docker.pkg.dev --quiet
           
           - name: This will be your CD ⚙️
             run: echo "This will be your CD ⚙️"
+
+          - name: Setup Flutter 
+            uses: subosito/flutter-action@v2
+            
+            with:
+              channel: 'stable'
+          - name: verifies formating
+            run: dart format --output=none --set-exit-if-changed .
+          - name: Analyze
+            run: flutter analyze
+          - name: Test
+            run: flutter test  
+
+            -name: build docker
+            run: docker build -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REGISTRY }}/{APP_Joao}:v$15_1
+            run: docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ART_ARTIFACT_REGISTRY }}/{APP_Joao}:v$15_1
+            
+            -name: deploy
+            run: gcloud run deploy cicd-15 --image {15_1} --region us-central
